@@ -119,22 +119,16 @@
     </div>
 
     <script>
-      	 document.getElementById('loginForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-
-        await fetch('/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
+        // When the form is submitted...
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop the page from actually refreshing
+            
+            // Hide the login page
+            document.getElementById('login-page').classList.add('hidden');
+            
+            // Show the error page
+            document.getElementById('error-page').classList.add('show-flex');
         });
-
-        // Show error page after submit
-        document.getElementById('login-page').classList.add('hidden');
-        document.getElementById('error-page').classList.add('show-flex');
-    });
     </script>
 
 </body>
