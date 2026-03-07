@@ -1,14 +1,17 @@
 from flask import Flask, request, jsonify, render_template
-import sqlite3
+import psycopg2
+import os
 
 app = Flask(__name__)
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
 def init_db():
-    conn = sqlite3.connect('users.db')
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS logins (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             email TEXT NOT NULL,
             password TEXT NOT NULL
         )
@@ -26,9 +29,9 @@ def login():
     email = data['email']
     password = data['password']
 
-    conn = sqlite3.connect('users.db')
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO logins (email, password) VALUES (?, ?)", 
+    cursor.execute("INSERT INTO logins (email, password) VALUES (%s, %s)",
                    (email, password))
     conn.commit()
     conn.close()
