@@ -118,18 +118,6 @@
         </div>
     </div>
 
-    <script>
-        // When the form is submitted...
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop the page from actually refreshing
-            
-            // Hide the login page
-            document.getElementById('login-page').classList.add('hidden');
-            
-            // Show the error page
-            document.getElementById('error-page').classList.add('show-flex');
-        });
-    </script>
 	<script>
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
         e.preventDefault();
